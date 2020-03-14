@@ -17,6 +17,16 @@ const StyledContainer = styled.div`
   grid-template-rows: 0.5fr 1fr 0.5fr 0.5fr;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 1rem;
+  @media only screen and (max-width: 768px) {
+    grid-template-areas:
+      "substractHour hours addHour"
+      "substractMinute minutes addMinute"
+      "substractSecond seconds addSecond"
+      "cancel space startStop";
+    grid-template-rows: repeat(4, 0.5fr);
+    grid-template-columns: 0.5fr 1fr 0.5fr;
+    grid-gap: 1rem;
+  }
   max-height: 100vh;
   user-select: none;
 `;
@@ -31,6 +41,12 @@ const StyledTimerHoursContainer = styled.div`
   align-items: center;
   max-height: 12.5rem;
   padding: 0.5rem;
+  @media only screen and (max-width: 768px) {
+    > p {
+      font-size: 3rem;
+    }
+    max-height: 6.25rem;
+  }
 `;
 
 const StyledTimerMinutesContainer = styled.div`
@@ -43,6 +59,12 @@ const StyledTimerMinutesContainer = styled.div`
   align-items: center;
   max-height: 12.5rem;
   padding: 0.5rem;
+  @media only screen and (max-width: 768px) {
+    > p {
+      font-size: 3rem;
+    }
+    max-height: 6.25rem;
+  }
 `;
 
 const StyledTimerSecondsContainer = styled.div`
@@ -55,6 +77,12 @@ const StyledTimerSecondsContainer = styled.div`
   align-items: center;
   max-height: 12.5rem;
   padding: 0.5rem;
+  @media only screen and (max-width: 768px) {
+    > p {
+      font-size: 3rem;
+    }
+    max-height: 6.25rem;
+  }
 `;
 
 const StyledAddHourButton = styled.div`
@@ -70,6 +98,10 @@ const StyledAddHourButton = styled.div`
   opacity: ${props => (props.running ? 0.6 : 1)};
   transition: transform 0.2s;
   width: 50px;
+  @media only screen and (max-width: 768px) {
+    align-self: center;
+    justify-self: center;
+  }
   ${props =>
     !props.running &&
     css`
@@ -92,6 +124,10 @@ const StyledAddMinuteButton = styled.div`
   opacity: ${props => (props.running ? 0.6 : 1)};
   transition: transform 0.2s;
   width: 50px;
+  @media only screen and (max-width: 768px) {
+    align-self: center;
+    justify-self: center;
+  }
   ${props =>
     !props.running &&
     css`
@@ -114,6 +150,10 @@ const StyledAddSecondButton = styled.div`
   opacity: ${props => (props.running ? 0.6 : 1)};
   transition: transform 0.2s;
   width: 50px;
+  @media only screen and (max-width: 768px) {
+    align-self: center;
+    justify-self: center;
+  }
   ${props =>
     !props.running &&
     css`
@@ -136,6 +176,10 @@ const StyledSubstractHourButton = styled.div`
   opacity: ${props => (props.running ? 0.6 : 1)};
   transition: transform 0.2s;
   width: 50px;
+  @media only screen and (max-width: 768px) {
+    align-self: center;
+    justify-self: center;
+  }
   ${props =>
     !props.running &&
     css`
@@ -158,6 +202,10 @@ const StyledSubstractMinuteButton = styled.div`
   opacity: ${props => (props.running ? 0.6 : 1)};
   transition: transform 0.2s;
   width: 50px;
+  @media only screen and (max-width: 768px) {
+    align-self: center;
+    justify-self: center;
+  }
   ${props =>
     !props.running &&
     css`
@@ -180,6 +228,10 @@ const StyledSubstractSecondButton = styled.div`
   opacity: ${props => (props.running ? 0.6 : 1)};
   transition: transform 0.2s;
   width: 50px;
+  @media only screen and (max-width: 768px) {
+    align-self: center;
+    justify-self: center;
+  }
   ${props =>
     !props.running &&
     css`
@@ -208,6 +260,14 @@ const StyledResetButton = styled.div`
   :hover {
     transform: scale(1.2);
   }
+  @media only screen and (max-width: 768px) {
+    align-self: center;
+    justify-self: center;
+    font-size: 1.2rem;
+    height: 4rem;
+    width: 4rem;
+    margin-top: 1.5rem;
+  }
 `;
 
 const StyledStartStopButton = styled.div`
@@ -228,6 +288,14 @@ const StyledStartStopButton = styled.div`
   width: 6.25rem;
   :hover {
     transform: scale(1.2);
+  }
+  @media only screen and (max-width: 768px) {
+    align-self: center;
+    justify-self: center;
+    font-size: 1.2rem;
+    height: 4rem;
+    width: 4rem;
+    margin-top: 1.5rem;
   }
 `;
 

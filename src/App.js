@@ -14,6 +14,14 @@ const StyledContainer = styled.div`
     "footer footer footer";
   grid-template-rows: 1fr 2fr 1fr;
   grid-template-columns: repeat(3, 1fr);
+  @media only screen and (max-width: 768px) {
+    grid-template-areas:
+      "menu"
+      "center"
+      "footer";
+    grid-template-rows: 1fr 2fr 0.5fr;
+    grid-template-columns: 1fr;
+  }
   height: 100vh;
   background-color: #121212;
 `;
