@@ -3,6 +3,9 @@ export {
   MilliSecondsContainer,
   MinutesContainer,
   SecondsContainer,
-  TimeContainer
+  StopWatchTimeContainer,
+  TimerContainer
 } from "./TimeContainers";
 export { default as TimeNumber } from "./TimeNumber";
+export { default as ResetButton } from "./ResetButton";
+export { default as StartStopButton } from "./StartStopButton";

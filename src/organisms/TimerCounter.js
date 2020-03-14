@@ -1,37 +1,32 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { MilliSecondsContainer, TimeContainer } from "../atoms";
+import { TimerContainer } from "../atoms";
 import {
   HoursTimeCounter,
   MinutesTimeCounter,
-  SecondsTimeCounter,
-  MilliSecondsTimeCounter
+  SecondsTimeCounter
 } from "../molecules";
 import moment from "moment";
 
-const TimeCounter = ({ time, showMilliseconds }) => {
-  const Container = showMilliseconds ? MilliSecondsContainer : TimeContainer;
+const TimerCounter = ({ time }) => {
   return (
-    <Container>
+    <TimerContainer>
       <HoursTimeCounter time={time.hours()} />
       <MinutesTimeCounter time={time.minutes()} />
       <SecondsTimeCounter time={time.seconds()} />
-      {showMilliseconds && (
-        <MilliSecondsTimeCounter time={time.milliseconds()} />
-      )}
-    </Container>
+    </TimerContainer>
   );
 };
 
-TimeCounter.defaultProps = {
+TimerCounter.defaultProps = {
   time: moment.duration({ minutes: 10 }),
   showMilliseconds: false
 };
 
-TimeCounter.propTypes = {
+TimerCounter.propTypes = {
   time: PropTypes.instanceOf(moment.duration),
   showMilliseconds: PropTypes.bool
 };
 
-export default TimeCounter;
+export default TimerCounter;

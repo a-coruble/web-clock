@@ -6,7 +6,7 @@ import { HoursContainer, TimeNumber } from "../atoms";
 const HoursTimeCounter = ({ time }) => {
   return (
     <HoursContainer>
-      <TimeNumber number={time} />
+      <TimeNumber time={time} />
     </HoursContainer>
   );
 };

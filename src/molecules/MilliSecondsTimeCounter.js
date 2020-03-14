@@ -1,18 +1,18 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { StyledSecondsContainer, TimeNumber } from "../atoms";
+import { MilliSecondsContainer, TimeNumber } from "../atoms";
 
 const MilliSecondsTimeCounter = ({ time }) => {
   return (
-    <StyledSecondsContainer>
-      <TimeNumber number={time} />
-    </StyledSecondsContainer>
+    <MilliSecondsContainer>
+      <TimeNumber time={time} />
+    </MilliSecondsContainer>
   );
 };
 
 MilliSecondsTimeCounter.defaultProps = {
-  time: 10
+  time: 0
 };
 
 MilliSecondsTimeCounter.propTypes = {

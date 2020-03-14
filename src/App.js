@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.min.css";
 
-import Timer from "./pages/Timer";
+import { Timer, StopWatch } from "./pages";
 
 import "./index.css";
 
@@ -37,6 +37,7 @@ const App = () => (
     <StyledContainer>
       <Switch>
         <Route path="/" component={Timer} exact />
+        <Route path="/stopwatch" component={StopWatch} />
       </Switch>
     </StyledContainer>
   </BrowserRouter>

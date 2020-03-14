@@ -1,13 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { StyledMinutesContainer, TimeNumber } from "../atoms";
+import { MinutesContainer, TimeNumber } from "../atoms";
 
 const MinutesTimeCounter = ({ time }) => {
   return (
-    <StyledMinutesContainer>
-      <TimeNumber number={time} />
-    </StyledMinutesContainer>
+    <MinutesContainer>
+      <TimeNumber time={time} />
+    </MinutesContainer>
   );
 };
 

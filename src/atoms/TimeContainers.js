@@ -58,7 +58,7 @@ export const MilliSecondsContainer = styled.div`
   background-color: #ffffff10;
   border-radius: 8px;
   color: white;
-  grid-area: seconds;
+  grid-area: milliseconds;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -72,7 +72,7 @@ export const MilliSecondsContainer = styled.div`
   }
 `;
 
-export const MilliSecondsTimeContainer = styled.div`
+export const StopWatchTimeContainer = styled.div`
   grid-area: center;
   display: grid;
   grid-template-areas:
@@ -95,7 +95,7 @@ export const MilliSecondsTimeContainer = styled.div`
   user-select: none;
 `;
 
-export const TimeContainer = styled.div`
+export const TimerContainer = styled.div`
   grid-area: center;
   display: grid;
   grid-template-areas:

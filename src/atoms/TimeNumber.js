@@ -8,20 +8,18 @@ const StyledP = styled.p`
   font-size: 10rem;
 `;
 
-const TimeNumber = ({ number }) => {
+const TimeNumber = ({ time }) => {
   return (
-    <StyledP>
-      {`${number}`.length === 1 ? `0${number}` : `${number}` || 0}
-    </StyledP>
+    <StyledP>{`${time}`.length === 1 ? `0${time}` : `${time}` || 0}</StyledP>
   );
 };
 
 TimeNumber.defaultProps = {
-  number: 0
+  time: 0
 };
 
 TimeNumber.propTypes = {
-  number: PropTypes.number
+  time: PropTypes.number
 };
 
 export default TimeNumber;
