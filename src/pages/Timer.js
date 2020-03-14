@@ -43,7 +43,7 @@ const StyledTimerHoursContainer = styled.div`
   padding: 0.5rem;
   @media only screen and (max-width: 768px) {
     > p {
-      font-size: 3rem;
+      font-size: 6rem;
     }
     max-height: 6.25rem;
   }
@@ -61,7 +61,7 @@ const StyledTimerMinutesContainer = styled.div`
   padding: 0.5rem;
   @media only screen and (max-width: 768px) {
     > p {
-      font-size: 3rem;
+      font-size: 6rem;
     }
     max-height: 6.25rem;
   }
@@ -79,7 +79,7 @@ const StyledTimerSecondsContainer = styled.div`
   padding: 0.5rem;
   @media only screen and (max-width: 768px) {
     > p {
-      font-size: 3rem;
+      font-size: 6rem;
     }
     max-height: 6.25rem;
   }
