@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { observer, useObservable } from "mobx-react-lite";
 import moment from "moment";
 import styled, { css } from "styled-components";
@@ -321,14 +321,15 @@ const StyledSwitchContainer = styled.div`
 
 const defaultTimer = moment.duration({ minutes: 10 });
 
-let autoplayEnabled = false;
-
-canAutoplay.audio().then(({ result }) => {
-  autoplayEnabled = result;
-});
-
 const Timer = observer(() => {
   const audio = new Audio(Sound);
+  const [autoplayEnabled, setAutoPlayEnabled] = useState(false);
+
+  useEffect(() => {
+    canAutoplay.audio().then(({ result }) => {
+      setAutoPlayEnabled(result);
+    });
+  }, []);
 
   const store = useObservable({
     value: moment.duration({ minutes: 10 }),
