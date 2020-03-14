@@ -3,8 +3,12 @@ import { observer, useObservable } from "mobx-react-lite";
 import moment from "moment";
 import styled, { css } from "styled-components";
 import { FaPlus, FaMinus } from "react-icons/fa";
+import Switch from "@bit/mui-org.material-ui.switch";
+import { toast } from "react-toastify";
+import canAutoplay from "can-autoplay";
 
 import TimerNumber from "../atoms/TimerNumber";
+import Sound from "../Helios.m4a";
 
 const StyledContainer = styled.div`
   grid-area: center;
@@ -299,11 +303,39 @@ const StyledStartStopButton = styled.div`
   }
 `;
 
+const StyledSwitchContainer = styled.div`
+  align-items: center;
+  align-self: center;
+  background-color: #ffffff10;
+  border-radius: 8%;
+  display: flex;
+  flex-direction: column;
+  grid-area: space;
+  justify-content: center;
+  justify-self: center;
+  color: white;
+  padding: 0.5rem;
+  font-family: "Roboto", "Times New Roman", Times, serif;
+  font-weight: bold;
+`;
+
 const defaultTimer = moment.duration({ minutes: 10 });
 
+let autoplayEnabled = false;
+
+canAutoplay.audio().then(({ result }) => {
+  autoplayEnabled = result;
+});
+
 const Timer = observer(() => {
+  const audio = new Audio(Sound);
+
   const store = useObservable({
     value: moment.duration({ minutes: 10 }),
+    playSound: false,
+    setPlaySound: () => {
+      store.playSound = !store.playSound;
+    },
     get running() {
       return store.interval !== null;
     },
@@ -342,6 +374,21 @@ const Timer = observer(() => {
     start: () => {
       store.interval = setInterval(() => {
         store.subtractSecond();
+        if (store.value.toISOString() === moment.duration().toISOString()) {
+          toast("Time's up !!", {
+            type: toast.TYPE.INFO,
+            position: toast.POSITION.TOP_RIGHT,
+            onClose: () => {
+              audio.pause();
+              audio.currentTime = 0;
+            }
+          });
+          if (store.playSound && autoplayEnabled) {
+            audio.volume = 1;
+            audio.play();
+          }
+          store.cancel();
+        }
       }, 1000);
     },
     stop: () => {
@@ -411,6 +458,12 @@ const Timer = observer(() => {
       >
         {store.running ? "Stop" : "Start"}
       </StyledStartStopButton>
+      {autoplayEnabled && (
+        <StyledSwitchContainer>
+          <Switch checked={store.playSound} onClick={store.setPlaySound} />
+          Play sound at end
+        </StyledSwitchContainer>
+      )}
     </StyledContainer>
   );
 });

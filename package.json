@@ -3,9 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@bit/mui-org.material-ui.switch": "^4.5.2",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "can-autoplay": "^3.0.0",
     "mobx": "^5.15.4",
     "mobx-react-lite": "^1.5.2",
     "moment": "^2.24.0",
@@ -14,6 +16,7 @@
     "react-icons": "^3.9.0",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.0",
+    "react-toastify": "^5.5.0",
     "styled-components": "^5.0.1"
   },
   "scripts": {

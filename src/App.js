@@ -1,6 +1,9 @@
 import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import styled from "styled-components";
+import { toast } from "react-toastify";
+
+import "react-toastify/dist/ReactToastify.min.css";
 
 import Timer from "./pages/Timer";
 
@@ -26,6 +29,8 @@ const StyledContainer = styled.div`
   background-color: #121212;
   touch-action: manipulation;
 `;
+
+toast.configure();
 
 const App = () => (
   <BrowserRouter>
