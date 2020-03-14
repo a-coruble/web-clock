@@ -24,6 +24,7 @@ const StyledContainer = styled.div`
   }
   height: 100vh;
   background-color: #121212;
+  touch-action: manipulation;
 `;
 
 const App = () => (
