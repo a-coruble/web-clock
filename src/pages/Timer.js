@@ -7,7 +7,7 @@ import Switch from "@bit/mui-org.material-ui.switch";
 import { toast } from "react-toastify";
 import canAutoplay from "can-autoplay";
 
-import TimerNumber from "../atoms/TimerNumber";
+import TimerNumber from "../atoms/TimeNumber";
 import Sound from "../Helios.m4a";
 
 const StyledContainer = styled.div`
@@ -35,7 +35,7 @@ const StyledContainer = styled.div`
   user-select: none;
 `;
 
-const StyledTimerHoursContainer = styled.div`
+const StyledHoursContainer = styled.div`
   background-color: #ffffff10;
   border-radius: 8px;
   color: white;
@@ -53,7 +53,7 @@ const StyledTimerHoursContainer = styled.div`
   }
 `;
 
-const StyledTimerMinutesContainer = styled.div`
+const StyledMinutesContainer = styled.div`
   background-color: #ffffff10;
   border-radius: 8px;
   color: white;
@@ -71,7 +71,7 @@ const StyledTimerMinutesContainer = styled.div`
   }
 `;
 
-const StyledTimerSecondsContainer = styled.div`
+const StyledSecondsContainer = styled.div`
   background-color: #ffffff10;
   border-radius: 8px;
   color: white;
@@ -411,9 +411,9 @@ const Timer = observer(() => {
       >
         <FaPlus color="white" />
       </StyledAddHourButton>
-      <StyledTimerHoursContainer>
+      <StyledHoursContainer>
         <TimerNumber number={store.value.hours()} />
-      </StyledTimerHoursContainer>
+      </StyledHoursContainer>
       <StyledSubstractHourButton
         onClick={store.running ? () => {} : store.subtractHour}
         running={store.running}
@@ -426,9 +426,9 @@ const Timer = observer(() => {
       >
         <FaPlus color="white" />
       </StyledAddMinuteButton>
-      <StyledTimerMinutesContainer>
+      <StyledMinutesContainer>
         <TimerNumber number={store.value.minutes()} />
-      </StyledTimerMinutesContainer>
+      </StyledMinutesContainer>
       <StyledSubstractMinuteButton
         onClick={store.running ? () => {} : store.subtractMinute}
         running={store.running}
@@ -441,9 +441,9 @@ const Timer = observer(() => {
       >
         <FaPlus color="white" />
       </StyledAddSecondButton>
-      <StyledTimerSecondsContainer>
+      <StyledSecondsContainer>
         <TimerNumber number={store.value.seconds()} />
-      </StyledTimerSecondsContainer>
+      </StyledSecondsContainer>
       <StyledSubstractSecondButton
         onClick={store.running ? () => {} : store.subtractSecond}
         running={store.running}

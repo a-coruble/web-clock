@@ -8,7 +8,7 @@ const StyledP = styled.p`
   font-size: 10rem;
 `;
 
-const TimerNumber = ({ number }) => {
+const TimeNumber = ({ number }) => {
   return (
     <StyledP>
       {`${number}`.length === 1 ? `0${number}` : `${number}` || 0}
@@ -16,12 +16,12 @@ const TimerNumber = ({ number }) => {
   );
 };
 
-TimerNumber.defaultProps = {
+TimeNumber.defaultProps = {
   number: 0
 };
 
-TimerNumber.propTypes = {
+TimeNumber.propTypes = {
   number: PropTypes.number
 };
 
-export default TimerNumber;
+export default TimeNumber;
