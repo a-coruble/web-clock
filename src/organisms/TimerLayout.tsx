@@ -1,5 +1,4 @@
 import React from "react";
-import styled from "styled-components";
 import moment from "moment";
 
 import {
@@ -15,7 +14,12 @@ import {
   MinutesTimeCounter,
   SecondsTimeCounter
 } from "../molecules";
-import { PlaySoundSwitch, ResetButton, StartStopButton } from "../atoms";
+import {
+  PlaySoundSwitch,
+  ResetButton,
+  StartStopButton,
+  TimerContainer
+} from "../atoms";
 
 interface TimerLayoutProps {
   addHour?: () => void;
@@ -34,31 +38,6 @@ interface TimerLayoutProps {
   running: boolean;
 }
 
-const StyledContainer = styled.div`
-  grid-area: center;
-  display: grid;
-  grid-template-areas:
-    "addHour addMinute addSecond"
-    "hours minutes seconds"
-    "subtractHour subtractMinute subtractSecond"
-    "reset space startStop";
-  grid-template-rows: 0.5fr 1fr 0.5fr 0.5fr;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: 1rem;
-  @media only screen and (max-width: 768px) {
-    grid-template-areas:
-      "subtractHour hours addHour"
-      "subtractMinute minutes addMinute"
-      "subtractSecond seconds addSecond"
-      "reset space startStop";
-    grid-template-rows: repeat(4, 0.5fr);
-    grid-template-columns: 0.5fr 1fr 0.5fr;
-    grid-gap: 1rem;
-  }
-  max-height: 100vh;
-  user-select: none;
-`;
-
 const TimerLayout = ({
   addHour,
   addMinute,
@@ -76,7 +55,7 @@ const TimerLayout = ({
   running
 }: TimerLayoutProps) => {
   return (
-    <StyledContainer>
+    <TimerContainer>
       <AddHourButton onClick={addHour} running={running} />
       <AddMinuteButton onClick={addMinute} running={running} />
       <AddSecondButton onClick={addSecond} running={running} />
@@ -91,7 +70,7 @@ const TimerLayout = ({
         <PlaySoundSwitch checked={playSound} onClick={onSwitch} />
       )}
       <StartStopButton onStart={onStart} onStop={onStop} running={running} />
-    </StyledContainer>
+    </TimerContainer>
   );
 };
 

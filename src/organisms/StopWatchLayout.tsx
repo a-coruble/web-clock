@@ -6,7 +6,8 @@ import {
   HoursTimeCounter,
   MilliSecondsTimeCounter,
   MinutesTimeCounter,
-  SecondsTimeCounter
+  SecondsTimeCounter,
+  LapDisplayContainer
 } from "../molecules";
 
 interface StopWatchLayoutProps {
@@ -14,7 +15,9 @@ interface StopWatchLayoutProps {
   onReset?: () => void;
   onStart?: () => void;
   onStop?: () => void;
+  onLap?: () => void;
   running: boolean;
+  laps: moment.Duration[];
 }
 
 const StopWatchLayout = ({
@@ -22,6 +25,8 @@ const StopWatchLayout = ({
   onReset,
   onStart,
   onStop,
+  onLap,
+  laps,
   running
 }: StopWatchLayoutProps) => {
   return (
@@ -32,6 +37,7 @@ const StopWatchLayout = ({
       <MilliSecondsTimeCounter time={Math.round(time.milliseconds() / 10)} />
       <ResetButton onReset={onReset} />
       <StartStopButton onStart={onStart} onStop={onStop} running={running} />
+      <LapDisplayContainer onLap={onLap} laps={laps} />
     </StopWatchTimeContainer>
   );
 };

@@ -21,7 +21,7 @@ const StyledContainer = styled.div`
     "menu menu menu"
     "leftCol center rightCol"
     "footer footer footer";
-  grid-template-rows: 1fr 2fr 1fr;
+  grid-template-rows: 0.5fr 2fr 0.5fr;
   grid-template-columns: repeat(3, 1fr);
   @media only screen and (max-width: 768px) {
     grid-template-areas:
