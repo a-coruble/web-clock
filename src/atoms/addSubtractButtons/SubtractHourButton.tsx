@@ -13,7 +13,7 @@ interface SubtractHourButtonProps {
 
 const StyledSubtractHourButton = styled.div`
   align-items: center;
-  align-self: flex-end;
+  align-self: flex-start;
   background-color: #ffffff10;
   border-radius: 50%;
   display: flex;
