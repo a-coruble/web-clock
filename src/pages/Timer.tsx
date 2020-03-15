@@ -9,14 +9,12 @@ interface TimerProps {
   timerStore?: TimerStore;
 }
 
-const emptyFunction = () => {};
-
 const TimerComponent = ({ timerStore }: TimerProps) => {
   return (
     <TimerLayout
       onStart={timerStore?.start}
       onStop={timerStore?.stop}
-      onSwitch={timerStore?.setPlaySound || emptyFunction}
+      onSwitch={timerStore?.setPlaySound}
       running={timerStore?.running ?? false}
       time={timerStore?.value ?? moment.duration({ minutes: 5 })}
       addHour={timerStore?.addHour}

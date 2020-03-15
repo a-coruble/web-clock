@@ -1,13 +1,17 @@
 import React from "react";
 import { Provider } from "mobx-react";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import styled from "styled-components";
 
 import "react-toastify/dist/ReactToastify.css";
+import "./index.css";
 
 import Timer from "./pages/Timer";
 import { timerStore } from "./stores/TimerStore";
-import "./index.css";
+import { stopwatchStore } from "./stores/StopwatchStore";
+import StopWatch from "./pages/StopWatch";
+import MenuBar from "./organisms/MenuBar";
 
 toast.configure();
 
@@ -34,12 +38,18 @@ const StyledContainer = styled.div`
 
 function App() {
   return (
-    <Provider timerStore={timerStore}>
-      <ToastContainer />
-      <StyledContainer>
-        <Timer />
-      </StyledContainer>
-    </Provider>
+    <BrowserRouter>
+      <Provider timerStore={timerStore} stopwatchStore={stopwatchStore}>
+        <ToastContainer />
+        <StyledContainer>
+          <MenuBar />
+          <Switch>
+            <Route path="/" exact component={Timer} />
+            <Route path="/stopwatch" component={StopWatch} />
+          </Switch>
+        </StyledContainer>
+      </Provider>
+    </BrowserRouter>
   );
 }
 

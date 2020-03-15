@@ -1,4 +1,5 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
 import styled from "styled-components";
 
 import { MenuItem } from "../molecules";
@@ -23,11 +24,16 @@ const StyledMenuBar = styled.div`
 `;
 
 const MenuBar = () => {
+  const location = useLocation();
   return (
     <StyledGridContainer>
       <StyledMenuBar>
-        <MenuItem to="/">Timer</MenuItem>
-        <MenuItem to="/stopwatch">Stopwatch</MenuItem>
+        <MenuItem to="/" active={location.pathname === "/"}>
+          Timer
+        </MenuItem>
+        <MenuItem to="/stopwatch" active={location.pathname === "/stopwatch"}>
+          Stopwatch
+        </MenuItem>
       </StyledMenuBar>
     </StyledGridContainer>
   );
