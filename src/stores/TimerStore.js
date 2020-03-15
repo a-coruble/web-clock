@@ -10,6 +10,8 @@ const defaultTimer = moment.duration({ minutes: 10 });
 
 export const TimerContext = createContext();
 
+// export class TimerStore
+// TODO: follow Guide on Dev.To to use class
 export const TimerProvider = ({ children }) => {
   const audio = new Audio(Sound);
 

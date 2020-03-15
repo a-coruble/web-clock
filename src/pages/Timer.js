@@ -1,11 +1,16 @@
-import React, { useContext } from "react";
-import { useObserver } from "mobx-react-lite";
+import React, { useEffect, useState } from "react";
+import { observer, useObservable } from "mobx-react-lite";
 import styled, { css } from "styled-components";
 import { FaPlus, FaMinus } from "react-icons/fa";
 import Switch from "@bit/mui-org.material-ui.switch";
+import moment from "moment";
+import { toast } from "react-toastify";
+import canAutoplay from "can-autoplay";
 
 import TimerNumber from "../atoms/TimeNumber";
-import { TimerContext, TimerProvider } from "../stores/TimerStore";
+import Sound from "../Helios.m4a";
+
+const defaultTimer = moment.duration({ minutes: 10 });
 
 const StyledContainer = styled.div`
   grid-area: center;
@@ -316,12 +321,89 @@ const StyledSwitchContainer = styled.div`
   font-weight: bold;
 `;
 
-const TimerConsumer = () => {
-  const store = useContext(TimerContext);
+const Timer = observer(() => {
+  const audio = new Audio(Sound);
+  const [autoplayEnabled, setAutoPlayEnabled] = useState(false);
 
-  console.log(store);
+  const store = useObservable({
+    value: moment.duration({ minutes: 10 }),
+    playSound: false,
+    setPlaySound: () => {
+      store.playSound = !store.playSound;
+    },
+    get running() {
+      return store.interval !== null;
+    },
+    addHour: () => {
+      if (store.value.hours() < 99) {
+        store.value = moment.duration(store.value).add(1, "hour");
+      }
+    },
+    subtractHour: () => {
+      if (store.value.hours() > 0) {
+        store.value = moment.duration(store.value).subtract(1, "hour");
+      }
+    },
+    addMinute: () => {
+      store.value = moment.duration(store.value).add(1, "minute");
+    },
+    subtractMinute: () => {
+      const less1Minute = moment.duration(store.value).subtract(1, "minute");
+      if (less1Minute.seconds() < 0) {
+        store.value = moment.duration();
+      } else if (
+        store.value.toISOString() !== moment.duration().toISOString()
+      ) {
+        store.value = less1Minute;
+      }
+    },
+    addSecond: () => {
+      store.value = moment.duration(store.value).add(1, "second");
+    },
+    subtractSecond: () => {
+      if (store.value.toISOString() !== moment.duration().toISOString()) {
+        store.value = moment.duration(store.value).subtract(1, "second");
+      }
+    },
+    interval: null,
+    start: () => {
+      store.interval = setInterval(() => {
+        store.subtractSecond();
+        if (store.value.toISOString() === moment.duration().toISOString()) {
+          toast("Time's up !!", {
+            type: toast.TYPE.INFO,
+            position: toast.POSITION.TOP_RIGHT,
+            onClose: () => {
+              audio.pause();
+              audio.currentTime = 0;
+            }
+          });
+          if (store.playSound && autoplayEnabled) {
+            audio.volume = 1;
+            audio.play();
+          }
+          store.cancel();
+        }
+      }, 1000);
+    },
+    stop: () => {
+      clearInterval(store.interval);
+      store.interval = null;
+    },
+    cancel: () => {
+      clearInterval(store.interval);
+      store.interval = null;
+      store.value = defaultTimer;
+    }
+  });
 
-  return useObserver(() => (
+  useEffect(() => {
+    canAutoplay.audio().then(({ result }) => {
+      setAutoPlayEnabled(result);
+    });
+  }, []);
+
+  return (
     <StyledContainer>
       <StyledAddHourButton
         onClick={store.running ? () => {} : store.addHour}
@@ -384,15 +466,7 @@ const TimerConsumer = () => {
         </StyledSwitchContainer>
       )}
     </StyledContainer>
-  ));
-};
-
-const Timer = () => {
-  return (
-    <TimerProvider>
-      <TimerConsumer />
-    </TimerProvider>
   );
-};
+});
 
 export default Timer;
