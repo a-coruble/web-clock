@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { Provider } from "mobx-react";
 import styled from "styled-components";
 import { toast } from "react-toastify";
 
@@ -9,6 +10,7 @@ import { Timer, StopWatch } from "./pages";
 import { MenuBar } from "./organisms";
 
 import "./index.css";
+import { TimerStore } from "./stores";
 
 const StyledContainer = styled.div`
   display: grid;
@@ -35,13 +37,15 @@ toast.configure();
 
 const App = () => (
   <BrowserRouter>
-    <StyledContainer>
-      <MenuBar />
-      <Switch>
-        <Route path="/" component={Timer} exact />
-        <Route path="/stopwatch" component={StopWatch} />
-      </Switch>
-    </StyledContainer>
+    <Provider timerStore={new TimerStore()}>
+      <StyledContainer>
+        <MenuBar />
+        <Switch>
+          <Route path="/" component={Timer} exact />
+          <Route path="/stopwatch" component={StopWatch} />
+        </Switch>
+      </StyledContainer>
+    </Provider>
   </BrowserRouter>
 );
 

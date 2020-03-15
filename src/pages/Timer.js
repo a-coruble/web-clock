@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { observer, useObservable } from "mobx-react-lite";
+import { observer, inject } from "mobx-react";
 import styled, { css } from "styled-components";
 import { FaPlus, FaMinus } from "react-icons/fa";
 import Switch from "@bit/mui-org.material-ui.switch";
@@ -321,152 +321,74 @@ const StyledSwitchContainer = styled.div`
   font-weight: bold;
 `;
 
-const Timer = observer(() => {
-  const audio = new Audio(Sound);
-  const [autoplayEnabled, setAutoPlayEnabled] = useState(false);
-
-  const store = useObservable({
-    value: moment.duration({ minutes: 10 }),
-    playSound: false,
-    setPlaySound: () => {
-      store.playSound = !store.playSound;
-    },
-    get running() {
-      return store.interval !== null;
-    },
-    addHour: () => {
-      if (store.value.hours() < 99) {
-        store.value = moment.duration(store.value).add(1, "hour");
-      }
-    },
-    subtractHour: () => {
-      if (store.value.hours() > 0) {
-        store.value = moment.duration(store.value).subtract(1, "hour");
-      }
-    },
-    addMinute: () => {
-      store.value = moment.duration(store.value).add(1, "minute");
-    },
-    subtractMinute: () => {
-      const less1Minute = moment.duration(store.value).subtract(1, "minute");
-      if (less1Minute.seconds() < 0) {
-        store.value = moment.duration();
-      } else if (
-        store.value.toISOString() !== moment.duration().toISOString()
-      ) {
-        store.value = less1Minute;
-      }
-    },
-    addSecond: () => {
-      store.value = moment.duration(store.value).add(1, "second");
-    },
-    subtractSecond: () => {
-      if (store.value.toISOString() !== moment.duration().toISOString()) {
-        store.value = moment.duration(store.value).subtract(1, "second");
-      }
-    },
-    interval: null,
-    start: () => {
-      store.interval = setInterval(() => {
-        store.subtractSecond();
-        if (store.value.toISOString() === moment.duration().toISOString()) {
-          toast("Time's up !!", {
-            type: toast.TYPE.INFO,
-            position: toast.POSITION.TOP_RIGHT,
-            onClose: () => {
-              audio.pause();
-              audio.currentTime = 0;
-            }
-          });
-          if (store.playSound && autoplayEnabled) {
-            audio.volume = 1;
-            audio.play();
-          }
-          store.cancel();
-        }
-      }, 1000);
-    },
-    stop: () => {
-      clearInterval(store.interval);
-      store.interval = null;
-    },
-    cancel: () => {
-      clearInterval(store.interval);
-      store.interval = null;
-      store.value = defaultTimer;
-    }
-  });
-
-  useEffect(() => {
-    canAutoplay.audio().then(({ result }) => {
-      setAutoPlayEnabled(result);
-    });
-  }, []);
-
-  return (
-    <StyledContainer>
-      <StyledAddHourButton
-        onClick={store.running ? () => {} : store.addHour}
-        running={store.running}
-      >
-        <FaPlus color="white" />
-      </StyledAddHourButton>
-      <StyledHoursContainer>
-        <TimerNumber number={store.value.hours()} />
-      </StyledHoursContainer>
-      <StyledSubstractHourButton
-        onClick={store.running ? () => {} : store.subtractHour}
-        running={store.running}
-      >
-        <FaMinus color="white" />
-      </StyledSubstractHourButton>
-      <StyledAddMinuteButton
-        onClick={store.running ? () => {} : store.addMinute}
-        running={store.running}
-      >
-        <FaPlus color="white" />
-      </StyledAddMinuteButton>
-      <StyledMinutesContainer>
-        <TimerNumber number={store.value.minutes()} />
-      </StyledMinutesContainer>
-      <StyledSubstractMinuteButton
-        onClick={store.running ? () => {} : store.subtractMinute}
-        running={store.running}
-      >
-        <FaMinus color="white" />
-      </StyledSubstractMinuteButton>
-      <StyledAddSecondButton
-        onClick={store.running ? () => {} : store.addSecond}
-        running={store.running}
-      >
-        <FaPlus color="white" />
-      </StyledAddSecondButton>
-      <StyledSecondsContainer>
-        <TimerNumber number={store.value.seconds()} />
-      </StyledSecondsContainer>
-      <StyledSubstractSecondButton
-        onClick={store.running ? () => {} : store.subtractSecond}
-        running={store.running}
-      >
-        <FaMinus color="white" />
-      </StyledSubstractSecondButton>
-      {store.running && (
-        <StyledResetButton onClick={store.cancel}>Cancel</StyledResetButton>
-      )}
-      <StyledStartStopButton
-        onClick={store.running ? store.stop : store.start}
-        running={store.running}
-      >
-        {store.running ? "Stop" : "Start"}
-      </StyledStartStopButton>
-      {store.autoplayEnabled && (
-        <StyledSwitchContainer>
-          <Switch checked={store.playSound} onClick={store.setPlaySound} />
-          Play sound at end
-        </StyledSwitchContainer>
-      )}
-    </StyledContainer>
-  );
-});
+const Timer = inject("timerStore")(
+  observer(({ timerStore: store }) => {
+    console.log(store.running);
+    return (
+      <StyledContainer>
+        <StyledAddHourButton
+          onClick={store.running ? () => {} : store.addHour}
+          running={store.running}
+        >
+          <FaPlus color="white" />
+        </StyledAddHourButton>
+        <StyledHoursContainer>
+          <TimerNumber number={store.value.hours()} />
+        </StyledHoursContainer>
+        <StyledSubstractHourButton
+          onClick={store.running ? () => {} : store.subtractHour}
+          running={store.running}
+        >
+          <FaMinus color="white" />
+        </StyledSubstractHourButton>
+        <StyledAddMinuteButton
+          onClick={store.running ? () => {} : store.addMinute}
+          running={store.running}
+        >
+          <FaPlus color="white" />
+        </StyledAddMinuteButton>
+        <StyledMinutesContainer>
+          <TimerNumber number={store.value.minutes()} />
+        </StyledMinutesContainer>
+        <StyledSubstractMinuteButton
+          onClick={store.running ? () => {} : store.subtractMinute}
+          running={store.running}
+        >
+          <FaMinus color="white" />
+        </StyledSubstractMinuteButton>
+        <StyledAddSecondButton
+          onClick={store.running ? () => {} : store.addSecond}
+          running={store.running}
+        >
+          <FaPlus color="white" />
+        </StyledAddSecondButton>
+        <StyledSecondsContainer>
+          <TimerNumber number={store.value.seconds()} />
+        </StyledSecondsContainer>
+        <StyledSubstractSecondButton
+          onClick={store.running ? () => {} : store.subtractSecond}
+          running={store.running}
+        >
+          <FaMinus color="white" />
+        </StyledSubstractSecondButton>
+        {store.running && (
+          <StyledResetButton onClick={store.cancel}>Cancel</StyledResetButton>
+        )}
+        <StyledStartStopButton
+          onClick={store.running ? store.stop : store.start}
+          running={store.running}
+        >
+          {store.running ? "Stop" : "Start"}
+        </StyledStartStopButton>
+        {store.autoplayEnabled && (
+          <StyledSwitchContainer>
+            <Switch checked={store.playSound} onClick={store.setPlaySound} />
+            Play sound at end
+          </StyledSwitchContainer>
+        )}
+      </StyledContainer>
+    );
+  })
+);
 
 export default Timer;
