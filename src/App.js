@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.min.css";
 
 import { Timer, StopWatch } from "./pages";
+import { MenuBar } from "./organisms";
 
 import "./index.css";
 
@@ -35,6 +36,7 @@ toast.configure();
 const App = () => (
   <BrowserRouter>
     <StyledContainer>
+      <MenuBar />
       <Switch>
         <Route path="/" component={Timer} exact />
         <Route path="/stopwatch" component={StopWatch} />
