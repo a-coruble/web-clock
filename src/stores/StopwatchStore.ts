@@ -16,8 +16,8 @@ export class StopWatchStore {
   @action.bound
   start() {
     this.interval = setInterval(() => {
-      this.value = moment.duration(this.value).add(1, "millisecond");
-    }, 1);
+      this.value = moment.duration(this.value).add(10, "millisecond");
+    }, 10);
   }
 
   @action.bound
@@ -35,10 +35,12 @@ export class StopWatchStore {
     }
     this.interval = null;
     this.value = defaultStopWatch;
+    this.laps = [];
   }
 
   @action.bound
   lap() {
+    console.log(this.laps);
     this.laps = [moment.duration(this.value), ...this.laps];
   }
 }

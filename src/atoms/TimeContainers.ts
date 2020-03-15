@@ -77,7 +77,7 @@ export const StopWatchTimeContainer = styled.div`
   display: grid;
   grid-template-areas:
     "hours minutes seconds milliseconds"
-    "reset lap lap startStop";
+    "reset lapsContainer lapsContainer startStop";
   grid-template-rows: 1fr 0.5fr;
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 1rem;
@@ -86,7 +86,7 @@ export const StopWatchTimeContainer = styled.div`
       "hours minutes"
       "seconds milliseconds"
       "reset startStop"
-      "lap lap";
+      "lapsContainer lapsContainer";
     grid-template-rows: repeat(4, 0.5fr);
     grid-template-columns: repeat(2, 1fr);
     grid-gap: 1rem;
@@ -102,17 +102,17 @@ export const TimerContainer = styled.div`
   grid-template-areas:
     "addHour addMinute addSecond"
     "hours minutes seconds"
-    "substractHour substractMinute substractSecond"
-    "cancel space startStop";
-  grid-template-rows: 0.5fr 1fr 0.5fr 0.5fr;
+    "subtractHour subtractMinute subtractSecond"
+    "reset space startStop";
+  grid-template-rows: 0.3fr 1fr 0.5fr 0.5fr;
   grid-template-columns: repeat(3, 1fr);
   grid-gap: 1rem;
   @media only screen and (max-width: 768px) {
     grid-template-areas:
-      "substractHour hours addHour"
-      "substractMinute minutes addMinute"
-      "substractSecond seconds addSecond"
-      "cancel space startStop";
+      "subtractHour hours addHour"
+      "subtractMinute minutes addMinute"
+      "subtractSecond seconds addSecond"
+      "reset space startStop";
     grid-template-rows: repeat(4, 0.5fr);
     grid-template-columns: 0.5fr 1fr 0.5fr;
     grid-gap: 1rem;

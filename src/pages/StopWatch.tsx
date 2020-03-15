@@ -17,6 +17,8 @@ const StopWatchComponent = ({ stopwatchStore }: StopWatchProps) => {
       onReset={stopwatchStore?.reset}
       onStart={stopwatchStore?.start}
       onStop={stopwatchStore?.stop}
+      onLap={stopwatchStore?.lap}
+      laps={stopwatchStore?.laps ?? []}
     />
   );
 };

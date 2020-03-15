@@ -13,7 +13,13 @@ const StyledP = styled.p`
 
 const TimeNumber = ({ time }: TimeNumberProps) => {
   return (
-    <StyledP>{`${time}`.length === 1 ? `0${time}` : `${time}` || 0}</StyledP>
+    <StyledP>
+      {`${time}`.length === 1
+        ? `0${time}`
+        : `${time}`.length > 2
+        ? `${time}`.substr(0, 2)
+        : `${time}` || `00`}
+    </StyledP>
   );
 };
 
