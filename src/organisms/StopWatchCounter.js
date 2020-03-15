@@ -47,7 +47,7 @@ StopWatchCounter.propTypes = {
   onStop: PropTypes.func,
   onReset: PropTypes.func,
   running: PropTypes.bool,
-  time: PropTypes.instanceOf(moment.duration)
+  time: PropTypes.object
 };
 
 export default StopWatchCounter;

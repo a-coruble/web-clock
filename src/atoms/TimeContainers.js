@@ -85,11 +85,12 @@ export const StopWatchTimeContainer = styled.div`
     grid-template-areas:
       "hours minutes"
       "seconds milliseconds"
-      "reset lap"
-      "startStop startStop";
+      "reset startStop"
+      "lap lap";
     grid-template-rows: repeat(4, 0.5fr);
     grid-template-columns: repeat(2, 1fr);
     grid-gap: 1rem;
+    margin: 0 1rem;
   }
   max-height: 100vh;
   user-select: none;
